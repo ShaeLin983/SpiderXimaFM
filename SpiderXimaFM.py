@@ -24,7 +24,6 @@ class SpiderXimaFM(object):
 
     def parse_data(self, dict_data):
 
-        self.audio_list = []
         for audio_data in dict_data:
             audio = {}
             audio["name"] = audio_data['trackName']
@@ -38,7 +37,6 @@ class SpiderXimaFM(object):
             print(file_name)
             with open("audio/{}.m4a".format(file_name), "wb")as f:
                 f.write(requests.get(file_url, headers=self.headers).content)
-        pass
 
     # 指定爬取的页码（起始页-结束页）
     def run(self, page_start=1, page_end=2):
@@ -47,7 +45,7 @@ class SpiderXimaFM(object):
             print(url)
             response = self.get_response(url)
             self.parse_data(response)
-            self.save_data()
+        self.save_data()
 
 
-SpiderXimaFM().run(3, 4)
+SpiderXimaFM().run()
